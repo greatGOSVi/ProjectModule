@@ -94,6 +94,23 @@ public class ClientServerController {
 				}).block();
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_MANAGER') || hasRole('ROLE_USER')")
+	@GetMapping("/projects/my_projects")
+	public Object getProjectsByUsername(@RegisteredOAuth2AuthorizedClient("itk-client-authorization-code") OAuth2AuthorizedClient oauth2AuthorizedClient) {
+		String username = oauth2AuthorizedClient.getPrincipalName();
+		
+		return this.webClient
+				.get()
+				.uri("http://10.5.0.7:8090/projects/my_projects/{username}", username)
+				.attributes(oauth2AuthorizedClient(oauth2AuthorizedClient)).exchangeToMono(response -> {
+					if(response.statusCode().isError()) {
+						return response.bodyToMono(ErrorDto.class);
+					} else {
+						return response.bodyToMono(Object.class);
+					}
+				}).block();
+	}
+	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/projects")
 	public Object postProject(@RegisteredOAuth2AuthorizedClient("itk-client-authorization-code") OAuth2AuthorizedClient oauth2AuthorizedClient, @RequestBody ProjectRequest request) {

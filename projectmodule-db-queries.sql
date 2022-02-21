@@ -24,6 +24,7 @@ CREATE TABLE roles (
 
 CREATE TABLE employees (
 	employee_id SERIAL PRIMARY KEY,
+    username VARCHAR,
 	role_id INT NOT NULL,
 	CONSTRAINT fk_role
 		FOREIGN KEY(role_id)
@@ -52,9 +53,9 @@ INSERT INTO projects(status_project_id, name, description, cost, start_date) VAL
 INSERT INTO roles VALUES (1, 'PO');
 INSERT INTO roles VALUES (2, 'DEV');
 
-INSERT INTO employees (role_id) VALUES (1);
-INSERT INTO employees (role_id) VALUES (2);
-INSERT INTO employees (role_id) VALUES (1);
+INSERT INTO employees (role_id, username) VALUES (1, 'carlos.reyes@theksquaregroup.com');
+INSERT INTO employees (role_id, username) VALUES (2, 'julio.vargas@theksquaregroup.com');
+INSERT INTO employees (role_id, username) VALUES (1, 'guillermo.ceme@theksquaregroup.com');
 INSERT INTO employees (role_id) VALUES (2);
 INSERT INTO employees (role_id) VALUES (2);
 INSERT INTO employees (role_id) VALUES (2);

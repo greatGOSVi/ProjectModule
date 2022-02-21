@@ -81,10 +81,10 @@ public class ProjectController {
 		}
 	}
 	
-	@GetMapping("/ByEmployeeId/{id}")
-	public ResponseEntity<Object> findAllActiveByEmployeeId(@PathVariable("id") int id) {
+	@GetMapping("/my_projects/{username}")
+	public ResponseEntity<Object> findAllActiveByEmployeeId(@PathVariable("username") String username) {
 		try {
-			return new ResponseEntity<Object>(projectService.findAllActiveByEmployeeId(id), HttpStatus.OK);
+			return new ResponseEntity<Object>(projectService.findAllActiveByUsername(username), HttpStatus.OK);
 		} catch(ElementNotFoundException e) {
 			return new ResponseEntity<Object>(
 					new ErrorDto(HttpStatus.NOT_FOUND, e.getMessage(), new Timestamp(System.currentTimeMillis())), HttpStatus.NOT_FOUND);

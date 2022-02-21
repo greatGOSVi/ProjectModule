@@ -15,7 +15,7 @@ public interface ProjectService {
 	
 	PagedResult<ProjectDto> findAll(String searchValue, Pageable pageable) throws ElementNotFoundException;
 	
-	PagedResult<ProjectDto> findAllActiveByEmployeeId(int id) throws ElementNotFoundException;
+	PagedResult<ProjectDto> findAllActiveByUsername(String username) throws ElementNotFoundException;
 
 	Optional<ProjectDto> findById(int id) throws ElementNotFoundException;
 	

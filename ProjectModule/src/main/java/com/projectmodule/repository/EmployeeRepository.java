@@ -11,6 +11,6 @@ import com.projectmodule.model.Employee;
 @Repository
 public interface EmployeeRepository extends PagingAndSortingRepository<Employee, Integer>, JpaSpecificationExecutor<Employee> {
 	
-	Optional<Employee> findById(int id);
+	Optional<Employee> findByUsername(String username);
 
 }

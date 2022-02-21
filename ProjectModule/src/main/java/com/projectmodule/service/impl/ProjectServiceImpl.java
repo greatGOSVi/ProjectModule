@@ -92,11 +92,12 @@ public class ProjectServiceImpl implements ProjectService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public PagedResult<ProjectDto> findAllActiveByEmployeeId(int id) throws ElementNotFoundException {
-		Optional<Employee> optEmployee = employeeRepository.findById(id);
+	public PagedResult<ProjectDto> findAllActiveByUsername(String username) throws ElementNotFoundException {
+		Optional<Employee> optEmployee = employeeRepository.findByUsername(username);
 		
 		if(optEmployee.isPresent()) {
-			List<Project> pageProjects = employeeProjectRepository.findAllActiveByEmployeeId(id);
+			int employeeId = optEmployee.get().getId();
+			List<Project> pageProjects = employeeProjectRepository.findAllActiveByEmployeeId(employeeId);
 			List<ProjectDto> listProjects = pageProjects.stream().map(this::convertProjectToDto).collect(Collectors.toList());
 			PagedResult<ProjectDto> projectsDto = new PagedResult<>();
 			projectsDto.setData(listProjects);
@@ -107,7 +108,7 @@ public class ProjectServiceImpl implements ProjectService {
 				return projectsDto;
 			}
 		} else {
-			throw new ElementNotFoundException("The employee with ID " + id + " can't be found");
+			throw new ElementNotFoundException("The employee with USERNAME " + username + " can't be found");
 		}
 	}
 
