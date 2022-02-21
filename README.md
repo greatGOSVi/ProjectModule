@@ -15,6 +15,10 @@ netsh int ip add addr 1 10.5.0.6/32 st=ac sk=tr
 
 netsh int ip add addr 1 10.5.0.7/32 st=ac sk=tr
 
+### 2,5.- Generate JARs:
+Generate the JARs of authorization-server, ProjectModule, and client-server; then, enter to target folder inside ProjectModule folder and change the name of both JARs
+to project-module.jar and project-module.jar.original respectively
+
 ### 3.- In the root folder of the project, execute in terminal:
 docker-compose up -d
 
