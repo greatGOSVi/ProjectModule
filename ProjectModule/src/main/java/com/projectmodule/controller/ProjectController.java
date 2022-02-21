@@ -82,6 +82,12 @@ public class ProjectController {
 	}
 	
 	@GetMapping("/my_projects/{username}")
+	@Operation(summary = "Endpoint that retrieves active Projects by Employee ID.",
+	responses = {
+		@ApiResponse(description = "Projects Found", responseCode = "200", content = @Content(mediaType = "application/json",
+				schema = @Schema(implementation = ProjectDto.class))),
+		@ApiResponse(description = "No Projects Found", responseCode = "404", content = @Content(mediaType = "application/json",
+				schema = @Schema(implementation = ErrorDto.class)))})
 	public ResponseEntity<Object> findAllActiveByEmployeeId(@PathVariable("username") String username) {
 		try {
 			return new ResponseEntity<Object>(projectService.findAllActiveByUsername(username), HttpStatus.OK);
