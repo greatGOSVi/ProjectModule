@@ -1,0 +1,84 @@
+version: "2"
+
+services:
+  
+  authorization-server:
+    container_name: authorization-server
+    build:
+      context: ./authorization-server
+      dockerfile: Dockerfile
+    ports:
+      - "9000:9000"
+    depends_on:
+      - authorization-database
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://authorization-database:5432/itk_authorization_server
+    networks:
+      authorization-network:
+        ipv4_address: 10.5.0.6
+
+  client-server:
+    container_name: client-server
+    build:
+      context: ./client-server
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - projectmodule-server
+      - authorization-database
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://authorization-database:5432/itk_authorization_server
+    networks:
+      authorization-network:
+        ipv4_address: 10.5.0.5
+
+  projectmodule-server:
+    container_name: projectmodule-server
+    build:
+      context: ./ProjectModule
+      dockerfile: Dockerfile
+    ports:
+      - "8090:8090"
+    depends_on:
+      - authorization-server
+      - projectmodule-database
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://projectmodule-database:5432/project_db
+    networks:
+      authorization-network:
+        ipv4_address: 10.5.0.7
+
+  projectmodule-database:
+    container_name: projectmodule-database
+    image: postgres
+    ports:
+      - "5443:5432"
+    environment:
+      - POSTGRES_DB=project_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=itk2022
+    networks:
+      authorization-network:
+        ipv4_address: 10.5.0.9
+  
+  authorization-database:
+    container_name: authorization-database
+    image: postgres
+    ports:
+      - "5442:5432"
+    environment:
+      - POSTGRES_DB=itk_authorization_server
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=itk2022
+    networks:
+      authorization-network:
+        ipv4_address: 10.5.0.4
+    
+networks:
+  authorization-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16
+          gateway: 10.5.0.1
