@@ -1,4 +1,4 @@
-# Project Module with oAuth2.0
+# Project Module with oAuth2.0 and Swagger
 A module to manage company projects info, like their names, description, personnel involved, and cost.
 
 ## How to run:
