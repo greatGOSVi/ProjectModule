@@ -82,7 +82,7 @@ public class ProjectController {
 	}
 	
 	@GetMapping("/my_projects/{username}")
-	@Operation(summary = "Endpoint that retrieves active Projects by Employee ID.",
+	@Operation(summary = "Endpoint that retrieves active Projects by Employee Id.",
 	responses = {
 		@ApiResponse(description = "Projects Found", responseCode = "200", content = @Content(mediaType = "application/json",
 				schema = @Schema(implementation = ProjectDto.class))),
