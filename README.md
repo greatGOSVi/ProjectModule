@@ -15,22 +15,26 @@ netsh int ip add addr 1 10.5.0.6/32 st=ac sk=tr
 
 netsh int ip add addr 1 10.5.0.7/32 st=ac sk=tr
 
+### 2,5.- Generate JARs
+Generate the JARs of authorization-server, ProjectModule, and client-server using this command in terminal: 'mvn install -Dmaven.test.skip=true' for each of the three folders; then, enter to target folder inside ProjectModule folder and change the name of both JARs
+to project-module.jar and project-module.jar.original respectively
+
 ### 3.- In the root folder of the project, execute in terminal:
 docker-compose up -d
 
-### 4.- Populate the databases:
+### 4.- Populate the databases
 Once your docker containers are up, open your Docker Desktop app and 
 enter the terminal of the authorization-database container and execute all queries in auth-db-queries.sql;
 then, open the terminal of the projectmodule-database container and execute all queries in projectmodule-db-queries.sql
 
-### 5.- Log in:
+### 5.- Log in
 Login in the redirect login form found in http://localhost:8080. The aviable users are:
 
-Username: julio.vargas@theksquaregroup.com, Password: user (ROLE_USER)
+Username: carlos.reyes@theksquaregroup.com, Password: admin (ROLE_ADMIN)
 
 Username: guillermo.ceme@theksquaregroup.com, Password: manager (ROLE_MANAGER)
 
-Username: carlos.reyes@theksquaregroup.com, Password: admin (ROLE_ADMIN)
+Username: julio.vargas@theksquaregroup.com, Password: user (ROLE_USER)
 
 ## Test it!
 Now, everything ready to test the endpoints.
